@@ -1,6 +1,6 @@
 import mysql.connector
 
-class Db:
+class Database:
     def __init__(self, host,user,password,database):
         self.host = host 
         self.user = user 
@@ -20,14 +20,23 @@ class Db:
         self.connection.close()
 
     def executeQuery(self, query, params=None):
-        self.connect()
-        self.cursor.execute(query, params or ())
-        self.connection.commit()
-        self.disconnect()
+        try:
+            self.connect()
+            self.cursor.execute(query, params or ())
+            self.connection.commit()
+        except mysql.connector.Error as err:
+            print(f"Erreur lors de l'exécution de la requête : {err}")
+            self.connection.rollback()
+        finally:
+            self.disconnect()
 
     def fetch(self, query, params=None):
-        self.connect()
-        self.cursor.execute(query, params or ())
-        result = self.cursor.fetchall()
-        self.disconnect
-        return result
+        try:
+            self.connect()
+            self.cursor.execute(query, params or ())
+            result = self.cursor.fetchall()
+            return result
+        except mysql.connector.Error as err:
+            print(f"Erreur lors de l'exécution de la requête : {err}")
+        finally:
+            self.disconnect()

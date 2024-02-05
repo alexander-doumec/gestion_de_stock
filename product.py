@@ -1,9 +1,9 @@
-from store import Db
+from store import Database
 
 class Product:
     def __init__(self):
         self.table = 'product'
-        self.db = Db(host='localhost', user='root', password='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', database='store')
+        self.db = Database(host='localhost', user='root', password='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', database='store')
 
     def create(self, name, description, price, quantity, id_category):
         query = f'INSERT INTO {self.table} (name, description, price,quantity, id_category) VALUES (%s,%s,%s,%s,%s)'

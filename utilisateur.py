@@ -1,38 +1,27 @@
 from product import Product
-from category import Category
-from store import Db
+from store import Database
 
-class Utilisateur : 
-    def __init__(self) -> None:
-        self.product = Product()
-        self.category = Category()
-
-    def createProduct(self, name, description,quantity,price,id_category):
-        self.product.create(name, description,price, quantity, id_category)
+class Utilisateur:
     
-    def readProcduct(self):
+    def __init__(self) -> None:
+        self.product = Product()     
+        
+
+    def createProduct(self, name, description, price, quantity, id_category):
+        self.product.create(name, description, price, quantity, id_category)
+        return True
+
+    def readproduit(self):
         return self.product.read()
     
-    def updateProduct(self, id, name, description, quantity,price, id_category):
-        self.product.update(id, name,description,quantity,price,id_category)
-
-    def deleteProduct(self, id):
+    def updateproduit(self, id, name, description, price, quantity, id_category):
+        self.product.update(id, name, description, price, quantity, id_category)
+        return True
+    
+    def deleteproduit(self, id):
         self.product.delete(id)
-
-    def findProduct(self, id):
-        return self.product.find(id)
+        return True
     
-    def createCategory(self, name):
-        self.category.create(name)
-
-    def readCategory(self):
-        return self.category.read()
-    
-    def updateCategory(self, id, name):
-        self.category.update(id, name)
-
-    def deleteCategory(self, id):
-        self.category.delete(id)
-
-    def findCategory(self, id):
-        return self.category.find(id)
+    def findproduit(self, id):
+        self.product.find(id)
+        return True
